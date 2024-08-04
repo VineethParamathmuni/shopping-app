@@ -40,7 +40,7 @@ function App() {
           <div>
             <div className="flex items-center w-full p-4">
               <Link className="flex-1 text-white text-center font-bold px-4 py-2" to="/">
-              Shopping App                
+              Flepkart                
               </Link>
               <ul className="flex flex-1 mx-4 px-4 py-2">
                 <li className="flex px-4 py-2 h-1/2 m-auto text-center">
