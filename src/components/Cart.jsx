@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   removeFromCart,
@@ -13,6 +13,7 @@ export default function Cart() {
   const products = useSelector((state) => state.data.cartProducts);
   const [filter, setFilter] = useState("");
   const [search, setSearch] = useState("");
+  let totalPrice = products.reduce((acc, product) => acc + (product.price * product.count), 0);
 
   const searchCriteria = (value) => value.toLowerCase().replace(" ", "");
 
@@ -22,14 +23,14 @@ export default function Cart() {
   const productsAfterFilter = productsAfterSearch.filter((product) =>
     filter ? product.category === filter : true
   );
-  let totalPrice = 0;
+  
 
   const productsPerPage = 4;
   const [currentPage, setCurrentPage] = useState(1);
   const lastIndex = currentPage * productsPerPage;
   const firstIndex = lastIndex - productsPerPage;
   const currentTasks = productsAfterFilter.slice(firstIndex, lastIndex);
-  const totalPages = Math.ceil(currentTasks.length / productsPerPage);
+  const totalPages = Math.ceil(productsAfterFilter.length / productsPerPage);
   const paginate = (PageNumber) => setCurrentPage(PageNumber);
 
   const handlePrevious = () => {
@@ -44,20 +45,20 @@ export default function Cart() {
     }
   };
 
-  return (
+  return (        
     <div>
       {products.length > 0 ? (
         <>
           <div className="space-x-20">
             <input
-              className="w-2/5 p-2 ml-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-3/5 p-2 ml-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               type="text"
               value={search}
               placeholder="Enter search value"
               onChange={(e) => setSearch(e.target.value)}
             />
             <select
-              className="w-2/5 p-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-2/12 p-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
             >
@@ -84,8 +85,7 @@ export default function Cart() {
                 product.count > 1
                   ? dispatch(decrease(product.id))
                   : dispatch(removeFromCart(product.id));
-              }
-              totalPrice += product.count * product.price;
+              }              
               return (
                 <div
                   key={index}
@@ -129,7 +129,8 @@ export default function Cart() {
               );
             })}
           </div>
-          {currentTasks.length > 0 && <div className="flex space-x-10 my-4 ">
+
+          {currentTasks.length > 0 && <div className="flex flex-row justify-center space-x-10 my-4 ">
             <button
               onClick={handlePrevious}
               disabled={currentPage === 1}
@@ -143,8 +144,8 @@ export default function Cart() {
                 onClick={() => paginate(index + 1)}
                 className={`p-2 rounded hover:bg-green-600 ${
                   currentPage === index + 1
-                    ? "bg-red-500 text-white"
-                    : "bg-red-300 text-white"
+                    ? "bg-red-800 text-white"
+                    : "bg-red-500 text-white"
                 }`}
               >
                 {index + 1}
@@ -156,12 +157,12 @@ export default function Cart() {
               className="bg-red-500 text-white px-6 rounded"
             >
               Next
-            </button>
+            </button>           
           </div>}
           
 
-          <div className="space-y-5">
-            <p className="text-white">Total Price : {totalPrice}</p>
+          <div className="flex flex-col items-center space-y-5">
+            <p className="text-black bg-white rounded-md px-4 py-2 text-center">Total Price : {totalPrice}</p>
             <button
               className=" bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition-colors h-1/2"
               onClick={() => dispatch(emptyCart())}
