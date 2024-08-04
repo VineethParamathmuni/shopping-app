@@ -3,11 +3,12 @@ import { Circles } from "react-loader-spinner";
 import { Routes, Route, Link } from "react-router-dom";
 import Home from "./components/Home";
 import Cart from "./components/Cart";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToList } from "./state/reducer";
 
 function App() {
   const dispatch = useDispatch();
+  const cartCount = useSelector((state) => state.data.cartProducts.length)
   const [loading, setLoading] = useState(false);
 
   async function fetchData() {
@@ -42,7 +43,7 @@ function App() {
               Shopping App                
               </Link>
               <ul className="flex flex-1 mx-4 px-4 py-2">
-                <li className="px-4 py-2 h-1/2 m-auto text-center">
+                <li className="flex px-4 py-2 h-1/2 m-auto text-center">
                   <Link
                     className="text-white py-2 px-4 bg-red-500  hover:bg-red-700 rounded-lg transition-colors"
                     to="/"
@@ -50,12 +51,13 @@ function App() {
                     Home
                   </Link>
                 </li>
-                <li className="py-2 px-4 h-1/2 m-auto text-center">
+                <li className="flex py-2 px-4 h-1/2 m-auto text-center">
                   <Link
                     className="text-white py-2 px-4 bg-red-500  hover:bg-red-700 rounded-lg transition-colors"
                     to="/cart"
                   >
-                    Cart
+                    
+                    Cart {cartCount > 0 ? <span className="px-1 text-black bg-yellow-50 rounded-full border-2 border-black">{cartCount}</span> : null}
                   </Link>
                 </li>
               </ul>
