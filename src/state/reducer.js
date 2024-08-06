@@ -11,7 +11,9 @@ export const dataSlice = createSlice({
             state.products.push(...action.payload);            
         },     
         addToCart : (state, action) =>{
-            state.cartProducts.push(action.payload);            
+            const product = [action.payload]
+            const productWithCount = product.map(product => ({...product, count : 1}))
+            state.cartProducts.push(...productWithCount);            
         },
         removeFromCart: (state, action) => {
            if(window.confirm('Are you sure you want to remove the item from your cart?')){

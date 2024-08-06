@@ -108,7 +108,7 @@ export default function Cart() {
                       </p>
                       <div className="flex">
                         <button
-                          className="mt-auto mb-2 bg-red-500 text-white py-2 px-4 rounded-lg w-1/2"
+                          className="mt-auto mb-2 bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded-lg w-1/2"
                           onClick={decrement}
                         >
                           -
@@ -117,7 +117,7 @@ export default function Cart() {
                           {product.count}
                         </p>
                         <button
-                          className="mt-auto mb-2 bg-red-500 text-white py-2 px-4 rounded-lg w-1/2"
+                          className="mt-auto mb-2 bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded-lg w-1/2"
                           onClick={increment}
                         >
                           +
@@ -148,7 +148,7 @@ export default function Cart() {
                   <button
                     key={index}
                     onClick={() => setCurrentPage(index + 1)}
-                    className={`p-2 rounded hover:bg-green-600 ${
+                    className={`p-2 rounded hover:bg-white hover:text-black ${
                       currentPage === index + 1
                         ? "bg-red-800 text-white"
                         : "bg-red-500 text-white"

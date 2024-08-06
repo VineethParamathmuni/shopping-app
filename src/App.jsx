@@ -14,14 +14,10 @@ function App() {
   async function fetchData() {
     setLoading(true);
     const products = await fetch("https://fakestoreapi.com/products");
-    const prodFinal = await products.json();
-    const prod = prodFinal.map((prod) => ({
-      ...prod,
-      count: 1,
-    }));
-    if (prod) {    
+    const prodFinal = await products.json();   
+    if (prodFinal) {    
       setLoading(false);
-      dispatch(addToList(prod));
+      dispatch(addToList(prodFinal));
     }
   }
 
@@ -34,7 +30,7 @@ function App() {
       <div>
         {loading ? (
           <div className="min-h-screen w-full flex items-center justify-center">
-            <Circles color="red" height={"120"} width={"120"} visible={true} />
+            <Circles color="red"  height={"240"} width={"240"} visible={true} />
           </div>
         ) : (
           <div>

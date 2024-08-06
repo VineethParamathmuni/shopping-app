@@ -50,11 +50,9 @@ export default function Home() {
                     ? dispatch(removeFromCart(product.id))
                     : dispatch(addToCart(product));
                 }}
-                className={
-                  cartItems.some((item) => item.id === product.id)
-                    ? "mt-auto mb-2 bg-red-700 text-white text-wrap py-2 px-4 rounded-lg w-1/2 hover:bg-red-700 transition-colors"
-                    : "mt-auto mb-2 bg-red-500 text-white text-wrap py-2 px-4 rounded-lg w-1/2 hover:bg-red-700 transition-colors"
-                }
+                className={`mt-auto mb-2 text-white text-wrap py-2 px-4 rounded-lg w-1/2 transition-colors ${
+                  cartItems.some((item) => item.id === product.id) ? "bg-red-700 hover:bg-red-700" : "bg-red-500 hover:bg-red-700"
+                }`}
               >
                 {cartItems.some((item) => item.id === product.id)
                   ? `Remove from Cart`
@@ -77,7 +75,7 @@ export default function Home() {
             <button
               key={index}
               onClick={() => paginate(index + 1)}
-              className={`p-2 rounded hover:bg-green-600 ${
+              className={`p-2 rounded hover:bg-white hover:text-black ${
                 currentPage === index + 1
                   ? "bg-red-800 text-white"
                   : "bg-red-500 text-white"

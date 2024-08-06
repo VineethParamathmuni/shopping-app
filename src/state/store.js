@@ -3,7 +3,7 @@ import dataReducer from './reducer'
 
 export const store = configureStore({
     reducer : {
-        data : dataReducer
+        data : dataReducer,
     }
 }
 )
