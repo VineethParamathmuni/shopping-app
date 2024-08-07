@@ -13,10 +13,10 @@ export default function Cart() {
   const products = useSelector((state) => state.data.cartProducts);
   const [filter, setFilter] = useState("");
   const [search, setSearch] = useState("");
-  let totalPrice = Number(Math.round(products.reduce(
+  let totalPrice = Number(products.reduce(
     (acc, product) => acc + product.price * product.count,
     0
-  )).toFixed(2));
+  ).toFixed(2));
 
   const searchCriteria = (value) => value.toLowerCase().replace(" ", "");
 
@@ -48,7 +48,7 @@ export default function Cart() {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [filter, search, products]);
+  }, [filter, search, products.length]);
 
   return (
     <div>
