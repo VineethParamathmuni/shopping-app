@@ -52,8 +52,7 @@ function App() {
                     className="text-white py-2 px-4 bg-red-500  hover:bg-red-700 rounded-lg transition-colors"
                     to="/cart"
                   >
-                    
-                    Cart {cartCount > 0 ? <span className="px-1 text-black bg-yellow-50 rounded-full border-2 border-black">{cartCount}</span> : null}
+                    Cart {cartCount > 0 && <span className="px-1 text-black bg-yellow-50 rounded-full border-2 border-black">{cartCount}</span>}
                   </Link>
                 </li>
               </ul>
