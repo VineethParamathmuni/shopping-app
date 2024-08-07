@@ -13,10 +13,10 @@ export default function Cart() {
   const products = useSelector((state) => state.data.cartProducts);
   const [filter, setFilter] = useState("");
   const [search, setSearch] = useState("");
-  let totalPrice = products.reduce(
+  let totalPrice = Number(Math.round(products.reduce(
     (acc, product) => acc + product.price * product.count,
     0
-  );
+  )).toFixed(2));
 
   const searchCriteria = (value) => value.toLowerCase().replace(" ", "");
 
@@ -48,7 +48,7 @@ export default function Cart() {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [filter, search]);
+  }, [filter, search, products]);
 
   return (
     <div>
@@ -140,7 +140,7 @@ export default function Cart() {
                 <button
                   onClick={handlePrevious}
                   disabled={currentPage === 1}
-                  className="bg-red-500 text-white px-6 rounded"
+                  className="bg-red-500 hover:bg-red-700 text-white px-6 rounded"
                 >
                   Previous
                 </button>
@@ -160,7 +160,7 @@ export default function Cart() {
                 <button
                   onClick={handleNext}
                   disabled={currentPage === totalPages}
-                  className="bg-red-500 text-white px-6 rounded"
+                  className="bg-red-500 hover:bg-red-700 text-white px-6 rounded"
                 >
                   Next
                 </button>
